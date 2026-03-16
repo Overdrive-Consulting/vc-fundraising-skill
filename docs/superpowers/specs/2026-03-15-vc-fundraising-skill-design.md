@@ -67,7 +67,7 @@ Linear, founder-driven pipeline. Each step maps 1:1 to a subagent.
 | map-investors | investor-mapper | `fund_candidates.json` | `data/raw/investor_list.json` |
 | enrich-vc-contacts | contact-enricher | `investor_list.json` | `data/normalized/investor_contacts.json` |
 | score-vc-fit | fund-scorer | `company_profile.json` + `fund_candidates.json` + `investor_contacts.json` | `data/normalized/scored_funds.json` |
-| draft-investor-outreach | outreach-ranker | `scored_funds.json` | `data/normalized/final_output.json` |
+| draft-investor-outreach | outreach-ranker | `scored_funds.json` + `company_profile.json` | `data/normalized/final_output.json` |
 
 **Note:** `find-vcs` (user-facing step name) is implemented by `fund-researcher` + `investor-mapper` in sequence. SKILL.md runs both when the user invokes `find-vcs`.
 
@@ -159,7 +159,7 @@ If a recommended actor is unavailable, subagents use the Apify MCP `actor-search
 - **Scoring:** applies weighted rubric; produces sub-scores + total
 
 ### `outreach-ranker`
-- **Input:** `data/normalized/scored_funds.json`
+- **Input:** `data/normalized/scored_funds.json` + `data/normalized/company_profile.json`
 - **Output:** `final_output.schema.json`-conformant array written to `data/normalized/final_output.json`
 - **Tools:** none (reasoning only)
 - **Model:** sonnet
@@ -292,7 +292,7 @@ If `fund-researcher` cannot find evidence for a dimension:
 }
 ```
 
-**Score computation:** `score_total` = sum of non-null sub-scores, rescaled to 100 by: `(sum_of_non_null / score_max_possible) * 100`. `score_max_possible` is the sum of the max points for all non-null dimensions. Both values are stored so consumers can assess confidence. `fund-scorer` documents the effective max in `score_notes` (e.g., "Scored out of 75 — geography and recency data unavailable").
+**Score computation:** `score_total` = sum of non-null sub-scores, rescaled to 100 by: `(sum_of_non_null / score_max_possible) * 100`. `score_max_possible` is the sum of the max points for all non-null dimensions. Both values are stored so consumers can assess confidence. `fund-scorer` documents the effective max in `score_notes` (e.g., "Scored out of 75 — geography and recency data unavailable"). `score_total` is stored as a float; consumers should round to integer for display.
 
 ### `final_output.schema.json` (array of)
 ```json
