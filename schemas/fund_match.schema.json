@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "FundMatch",
+  "description": "Array of scored and ranked VC matches produced by score-vc-fit",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["fund_id", "fund_name", "score_total", "score_max_possible", "score_notes"],
+    "properties": {
+      "fund_id": { "type": "string" },
+      "fund_name": { "type": "string" },
+      "score_total": { "type": "number", "minimum": 0, "maximum": 100 },
+      "score_max_possible": { "type": "number", "minimum": 0, "maximum": 100 },
+      "score_breakdown": {
+        "type": "object",
+        "properties": {
+          "sector_fit":        { "type": ["number", "null"], "minimum": 0, "maximum": 25 },
+          "stage_fit":         { "type": ["number", "null"], "minimum": 0, "maximum": 20 },
+          "geography_fit":     { "type": ["number", "null"], "minimum": 0, "maximum": 10 },
+          "check_size_fit":    { "type": ["number", "null"], "minimum": 0, "maximum": 10 },
+          "lead_behavior_fit": { "type": ["number", "null"], "minimum": 0, "maximum": 10 },
+          "portfolio_adjacency":{ "type": ["number", "null"], "minimum": 0, "maximum": 10 },
+          "recency":           { "type": ["number", "null"], "minimum": 0, "maximum": 10 },
+          "partner_relevance": { "type": ["number", "null"], "minimum": 0, "maximum": 5 }
+        }
+      },
+      "score_notes": { "type": "string" },
+      "why_match": { "type": "array", "items": { "type": "string" } },
+      "risks": { "type": "array", "items": { "type": "string" } },
+      "investors": {
+        "type": "array",
+        "description": "Joined investor_contact objects for this fund",
+        "items": { "type": "object" }
+      }
+    }
+  }
+}

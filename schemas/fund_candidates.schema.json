@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "FundCandidates",
+  "description": "Array of candidate VC firms produced by find-vcs",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["fund_id", "fund_name", "website", "preliminary_rationale", "evidence_confidence"],
+    "properties": {
+      "fund_id": { "type": "string", "description": "Lowercase hyphen-separated slug, e.g. 'sequoia-capital'" },
+      "fund_name": { "type": "string" },
+      "website": { "type": "string" },
+      "location": { "type": ["string", "null"] },
+      "stage_focus": { "type": "array", "items": { "type": "string" } },
+      "sector_focus": { "type": "array", "items": { "type": "string" } },
+      "check_size_range_usd": {
+        "type": ["array", "null"],
+        "items": { "type": "number" },
+        "minItems": 2,
+        "maxItems": 2
+      },
+      "lead_behavior": { "type": "string", "enum": ["lead", "co-lead", "follow", "unknown"] },
+      "recent_investments": { "type": "array", "items": { "type": "string" } },
+      "preliminary_rationale": { "type": "string" },
+      "possible_concerns": { "type": ["string", "null"] },
+      "evidence_confidence": { "type": "string", "enum": ["high", "medium", "low"] }
+    }
+  }
+}

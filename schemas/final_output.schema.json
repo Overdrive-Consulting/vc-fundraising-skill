@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "FinalOutput",
+  "description": "Ranked outreach list with drafted messages, produced by draft-investor-outreach",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": [
+      "priority_rank", "fund_id", "fund_name", "score_total", "score_max_possible",
+      "investor_name", "investor_title", "contact_tier",
+      "outreach_subject_line", "outreach_email_body", "outreach_linkedin_dm",
+      "outreach_personalization_hook", "outreach_cta"
+    ],
+    "properties": {
+      "priority_rank": { "type": "number" },
+      "fund_id": { "type": "string" },
+      "fund_name": { "type": "string" },
+      "score_total": { "type": "number" },
+      "score_max_possible": { "type": "number" },
+      "investor_name": { "type": "string" },
+      "investor_title": { "type": "string" },
+      "contact_tier": { "type": "string", "enum": ["confirmed", "inferred", "not_found"] },
+      "work_email": { "type": ["string", "null"] },
+      "linkedin": { "type": ["string", "null"] },
+      "outreach_subject_line": { "type": "string" },
+      "outreach_email_body": { "type": "string" },
+      "outreach_linkedin_dm": { "type": "string" },
+      "outreach_personalization_hook": { "type": "string" },
+      "outreach_cta": { "type": "string" }
+    }
+  }
+}

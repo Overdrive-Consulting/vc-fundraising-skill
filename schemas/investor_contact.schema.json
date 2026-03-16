@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "InvestorContact",
+  "description": "Array of enriched investor contacts produced by enrich-vc-contacts",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["fund_id", "name", "title", "firm", "contact_tier", "source_type"],
+    "properties": {
+      "fund_id": { "type": "string", "description": "Foreign key → fund_candidates.fund_id" },
+      "name": { "type": "string" },
+      "title": { "type": "string" },
+      "firm": { "type": "string" },
+      "location": { "type": ["string", "null"] },
+      "linkedin": { "type": ["string", "null"] },
+      "firm_profile_url": { "type": ["string", "null"] },
+      "work_email": { "type": ["string", "null"] },
+      "email_confidence": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+      "source_type": { "type": "string", "enum": ["public", "probabilistic", "not_found"] },
+      "contact_tier": { "type": "string", "enum": ["confirmed", "inferred", "not_found"] },
+      "reason_to_contact": { "type": "string" }
+    }
+  }
+}

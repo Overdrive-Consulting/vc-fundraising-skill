@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CompanyProfile",
+  "description": "Structured fundraising brief produced by clarify-thesis",
+  "type": "object",
+  "required": ["company_name", "one_line_thesis", "sector", "stage", "geo", "business_model", "check_size_target_usd", "investor_preferences"],
+  "properties": {
+    "company_name": { "type": "string" },
+    "one_line_thesis": { "type": "string" },
+    "sector": { "type": "array", "items": { "type": "string" } },
+    "stage": { "type": "string", "enum": ["pre-seed", "seed", "series-a"] },
+    "geo": { "type": "array", "items": { "type": "string" } },
+    "business_model": { "type": "string" },
+    "check_size_target_usd": {
+      "type": "array",
+      "items": { "type": "number" },
+      "minItems": 2,
+      "maxItems": 2,
+      "description": "[min, max] in USD"
+    },
+    "total_round_target_usd": { "type": ["number", "null"] },
+    "traction_summary": { "type": ["string", "null"] },
+    "comparable_companies": { "type": "array", "items": { "type": "string" } },
+    "investor_preferences": {
+      "type": "object",
+      "properties": {
+        "lead": { "type": "boolean" },
+        "thesis_keywords": { "type": "array", "items": { "type": "string" } },
+        "avoid": { "type": "array", "items": { "type": "string" } },
+        "warm_intro_preferred": { "type": "boolean" }
+      }
+    },
+    "assumptions_made": { "type": "array", "items": { "type": "string" } },
+    "open_questions": { "type": "array", "items": { "type": "string" } }
+  }
+}
