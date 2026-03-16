@@ -1,2 +1,14 @@
 .env
 .mcp.json
+
+# Pipeline data outputs
+data/raw/*
+data/normalized/*
+!data/raw/.gitkeep
+!data/normalized/.gitkeep
+
+# Internal planning docs
+docs/superpowers/
+
+# macOS
+.DS_Store

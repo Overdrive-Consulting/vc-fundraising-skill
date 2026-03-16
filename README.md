@@ -1,6 +1,57 @@
-# vc-fundraising-skill
+# VC Fundraising Skills for Startups
 
 A Claude Code skill that helps founders research and target venture capital investors. Describe your startup and it walks you through finding aligned VC funds, mapping the right people, enriching contact details, scoring fit, and drafting personalized outreach — step by step.
+
+## Getting Started
+
+1. Get API keys for Apify and Exa.
+2. Export `APIFY_TOKEN` and `EXA_API_KEY` in your shell.
+3. Open this repo in Claude Code (`cd vc-fundraising-skill && claude`).
+4. Start with: `"Start vc fundraising"` and follow each review checkpoint.
+
+## Install this skills repo
+
+`skills.sh` and Claude Code plugin manager are not available in this environment yet, so install manually for now.
+
+### Manual install (current)
+
+```bash
+mkdir -p ~/.claude/skills
+cp -R .claude/skills/* ~/.claude/skills/
+```
+
+This installs the skills globally under `~/.claude/skills/` so they are available across projects.
+
+To update later, pull the latest changes in this repo and run the copy command again.
+
+### When skills CLI / plugins are available (future)
+
+Via `skills.sh` CLI:
+
+```bash
+npx skills add extruct-ai/gtm-skills
+```
+
+Via Claude Code plugin manager:
+
+```text
+/plugin marketplace add extruct-ai/gtm-skills
+/plugin install gtm-skills
+```
+
+Updating:
+
+```bash
+npx skills add extruct-ai/gtm-skills
+# or
+npx skills update
+```
+
+Plugin manager update:
+
+```text
+/plugin marketplace update
+```
 
 ## What it does
 
@@ -8,23 +59,23 @@ A Claude Code skill that helps founders research and target venture capital inve
 clarify-thesis → find-vcs → map-investors → enrich-vc-contacts → score-vc-fit → draft-investor-outreach
 ```
 
-| Step | What happens | You review |
-|------|-------------|-----------|
-| 1. clarify-thesis | Asks targeted questions to build a structured fundraising brief | Confirm the brief before continuing |
-| 2. find-vcs | Searches VC databases (OpenVC, Crunchbase, etc.) and scrapes firm websites | Approve / edit the list of 15–30 candidate firms |
-| 3. map-investors | Finds the right partners and principals at each firm | Approve / edit the people list |
-| 4. enrich-vc-contacts | Finds public emails and LinkedIn profiles | Review contact quality tiers |
-| 5. score-vc-fit | Scores each firm on 8 dimensions and ranks the list | Confirm or reorder the ranking |
-| 6. draft-investor-outreach | Drafts a tailored email + LinkedIn message for each investor | Edit and send |
+| Step                       | What happens                                                               | You review                                       |
+| -------------------------- | -------------------------------------------------------------------------- | ------------------------------------------------ |
+| 1. clarify-thesis          | Asks targeted questions to build a structured fundraising brief            | Confirm the brief before continuing              |
+| 2. find-vcs                | Searches VC databases (OpenVC, Crunchbase, etc.) and scrapes firm websites | Approve / edit the list of 15–30 candidate firms |
+| 3. map-investors           | Finds the right partners and principals at each firm                       | Approve / edit the people list                   |
+| 4. enrich-vc-contacts      | Finds public emails and LinkedIn profiles                                  | Review contact quality tiers                     |
+| 5. score-vc-fit            | Scores each firm on 8 dimensions and ranks the list                        | Confirm or reorder the ranking                   |
+| 6. draft-investor-outreach | Drafts a tailored email + LinkedIn message for each investor               | Edit and send                                    |
 
 ## Requirements
 
 Two API tokens are required before running the pipeline:
 
-| Service | Used for | Get it |
-|---------|---------|--------|
+| Service   | Used for                                                                                          | Get it                                                           |
+| --------- | ------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
 | **Apify** | Scraping VC firm websites, team pages, portfolio pages, LinkedIn profiles, and bulk email finding | [apify.com](https://apify.com) → Console → Settings → API tokens |
-| **Exa** | Semantic people search — finding the right partners and principals at each firm | [exa.ai](https://exa.ai) → Dashboard → API keys |
+| **Exa**   | Semantic people search — finding the right partners and principals at each firm                   | [exa.ai](https://exa.ai) → Dashboard → API keys                  |
 
 Both tokens must be set before opening the repo in Claude Code. The pipeline will not work without them.
 
@@ -75,14 +126,14 @@ The pipeline will guide you through each step, pause for your review at every ch
 
 All outputs are saved in `data/`:
 
-| File | Contents | Step |
-|------|---------|------|
-| `data/normalized/company_profile.json` | Structured fundraising brief | After step 1 |
-| `data/raw/fund_candidates.json` | Candidate VC firms with rationale | After step 2 |
-| `data/raw/investor_list.json` | Individual investors at each firm | After step 3 |
-| `data/normalized/investor_contacts.json` | Enriched contacts with emails + LinkedIn | After step 4 |
-| `data/normalized/scored_funds.json` | Scored and ranked firms with breakdowns | After step 5 |
-| `data/normalized/final_output.json` | Ranked outreach list with drafted messages | After step 6 |
+| File                                     | Contents                                   | Step         |
+| ---------------------------------------- | ------------------------------------------ | ------------ |
+| `data/normalized/company_profile.json`   | Structured fundraising brief               | After step 1 |
+| `data/raw/fund_candidates.json`          | Candidate VC firms with rationale          | After step 2 |
+| `data/raw/investor_list.json`            | Individual investors at each firm          | After step 3 |
+| `data/normalized/investor_contacts.json` | Enriched contacts with emails + LinkedIn   | After step 4 |
+| `data/normalized/scored_funds.json`      | Scored and ranked firms with breakdowns    | After step 5 |
+| `data/normalized/final_output.json`      | Ranked outreach list with drafted messages | After step 6 |
 
 The `final_output.json` file contains everything you need to send outreach — investor name, contact details, subject line, email body, and LinkedIn message.
 
