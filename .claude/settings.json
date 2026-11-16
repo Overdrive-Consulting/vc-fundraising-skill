@@ -1,0 +1,13 @@
+{
+  "extraKnownMarketplaces": {
+    "overdrive": {
+      "source": {
+        "source": "github",
+        "repo": "Overdrive-Consulting/overdrive-devkit"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "engineering@overdrive": true
+  }
+}
